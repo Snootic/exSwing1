@@ -13,7 +13,8 @@ public class Aluno extends javax.swing.JFrame {
         super("Aluno");
         setVisible(true);
         initComponents();
-    
+        buttonGroup1.add(mascRadio);
+        buttonGroup1.add(femRadio);
     }
 
     /**
@@ -67,6 +68,7 @@ public class Aluno extends javax.swing.JFrame {
         labelRGM.setText("RGM");
 
         nascData.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        nascData.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         nascData.setEnabled(false);
         nascData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,9 +149,9 @@ public class Aluno extends javax.swing.JFrame {
                     .addComponent(NomeLabel)
                     .addComponent(SobrenomeLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(dialogoFinalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Sobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(dialogoFinalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Sobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(dialogoFinalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dataNascimentoLabel)
@@ -320,20 +322,33 @@ public class Aluno extends javax.swing.JFrame {
     public String getDate(){
         return nascField.getText();
     }
-    
+    public String getSexo() {
+    if (mascRadio.isSelected()) {
+        return mascRadio.getText();
+    } else if (femRadio.isSelected()) {
+        return femRadio.getText();
+    } else {
+        return null;
+    }
+}
+    public String getCurso(){
+        String curso = String.valueOf(cursoBox.getSelectedItem());
+        return curso;
+    }
     public void Dialogo(){
         String nome = getNome();
             String sobrenome = getSobrenome();
             String data = getDate();
             String RGM = getRGM();
-            
+            String sexo = getSexo();
+            String curso = getCurso();
             
             Nome.setText(nome);
             Sobrenome.setText(sobrenome);
             nascData.setText(data);
-            SexoNome.setText("alo");
+            SexoNome.setText(sexo);
             numeroRGM.setText(RGM);
-            CursoNome.setText("AAAA");
+            CursoNome.setText(curso);
             dialogoFinal.setSize(370,300);
             dialogoFinal.setVisible(true);
     }
@@ -341,8 +356,8 @@ public class Aluno extends javax.swing.JFrame {
     
     private void attButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attButtonActionPerformed
         String confirmar = "Você está atualizando seus dados, deseja confirmar?";
-        Integer confirm = JOptionPane.showConfirmDialog(rootPane, confirmar, "Atenção!", WIDTH);
-        if (confirm == 2 || confirm == 1){
+        Integer confirm = JOptionPane.showConfirmDialog(rootPane, confirmar, "Atenção!", JOptionPane.YES_NO_OPTION);
+        if (confirm == 1){
             
         }else if (confirm == 0){
             Dialogo();
